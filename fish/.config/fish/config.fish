@@ -21,6 +21,9 @@ if status is-interactive
   --color=fg:#c0caf5,header:#f7768e,info:#7aa2f7,pointer:#7dcfff \
   --color=marker:#9ece6a,fg+:#c0caf5,prompt:#7aa2f7,hl+:#f7768e"
 
+    # enable farsi
+    setxkbmap -layout us,ir -option 'grp:alt_shift_toggle'
+
     # enable vi mode persistently
     set -g fish_key_bindings fish_vi_key_bindings
     function fish_user_key_bindings
