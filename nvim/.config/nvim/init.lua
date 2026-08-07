@@ -24,7 +24,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- Snippets
-vim.g.lua_snippet_path = vim.fn.stdpath 'config' .. '/lua/snippets/'
+vim.g.lua_snippets_path = vim.fn.stdpath 'config' .. '/lua/snippets/'
 
 -- Tabs
 vim.o.tabstop = 2

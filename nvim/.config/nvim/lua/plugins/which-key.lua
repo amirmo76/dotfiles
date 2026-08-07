@@ -8,6 +8,7 @@ return {
 			wk.setup(opts)
 			wk.add({
 				{ "<leader>p", group = "Find" },
+				{ "<leader>g", group = "Git" },
 			})
 		end,
 	},
