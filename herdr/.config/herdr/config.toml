@@ -2,3 +2,8 @@
 # Path (Linux and macOS): ~/.config/herdr/config.toml
 # Validate after editing: herdr config check
 # Apply to a running server:  herdr server reload-config
+
+onboarding = false
+
+[theme]
+name = "tokyo-night"
