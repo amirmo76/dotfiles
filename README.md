@@ -19,8 +19,8 @@ Clone and stow:
 ```bash
 git clone <repo-url> ~/dotfiles
 cd ~/dotfiles
-stow fish tmux nvim kitty
-stow --no-folding herdr
+stow fish nvim
+stow --no-folding tmux kitty herdr
 ```
 
 > If target files already exist, delete or back them up first — stow refuses to
@@ -67,6 +67,19 @@ fish ~/.config/fish/install.fish
 ---
 
 ## tmux
+
+Config lives at `~/.config/tmux/tmux.conf` (not the legacy `~/.tmux.conf` —
+delete that file if it exists, it takes precedence).
+
+Plugins are managed by TPM, which installs into `~/.tmux/plugins` and is not
+tracked here. On a fresh machine:
+
+```bash
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+```
+
+then start tmux and press `prefix + I` to install the rest.
+
 
 Install tmux:
 

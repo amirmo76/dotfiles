@@ -1,4 +1,5 @@
-.config/tmux/plugins
+tmux/.config/tmux/plugins/
+kitty/.config/kitty/*.bak
 herdr/.config/herdr/*.log
 herdr/.config/herdr/*.sock
 herdr/.config/herdr/session.json
