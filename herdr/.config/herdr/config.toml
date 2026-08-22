@@ -13,3 +13,6 @@ prefix = "ctrl+a"
 goto = "prefix+g"
 split_vertical = "prefix+%"
 split_horizontal = "prefix+'"
+
+[experimental]
+kitty_graphics = true
