@@ -4,11 +4,8 @@ return {
     lazy = false,
     config = function()
       local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities = vim.tbl_deep_extend(
-        'force',
-        capabilities,
-        require('cmp_nvim_lsp').default_capabilities()
-      )
+      capabilities =
+        vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
       vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
         pattern = { '*.rs' },
@@ -94,6 +91,21 @@ return {
         filetypes = { 'html' },
       })
       vim.lsp.enable 'htmx'
+
+      vim.filetype.add {
+        extension = { wgsl = 'wgsl' },
+      }
+      vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
+        pattern = { '*.wgsl' },
+        callback = function()
+          vim.lsp.buf.format()
+        end,
+      })
+      vim.lsp.config('wgsl_analyzer', {
+        on_attach = on_attach,
+        capabilities = capabilities,
+      })
+      vim.lsp.enable 'wgsl_analyzer'
     end,
   },
 }
