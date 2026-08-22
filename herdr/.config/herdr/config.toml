@@ -7,3 +7,9 @@ onboarding = false
 
 [theme]
 name = "tokyo-night"
+
+[keys]
+prefix = "ctrl+a"
+goto = "prefix+g"
+split_vertical = "prefix+%"
+split_horizontal = "prefix+'"

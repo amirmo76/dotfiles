@@ -51,6 +51,10 @@ Set as default shell:
 chsh -s $(which fish)
 ```
 
+`herdr-layout` (function) creates a herdr workspace in the current directory
+with the standard 4-pane layout and focuses it; `herdr-layout --apps` also
+launches claude and nvim in it. Run from outside herdr, it attaches too.
+
 After stowing, bootstrap plugins (fisher + all plugins + tide config):
 ```bash
 fish ~/.config/fish/install.fish
