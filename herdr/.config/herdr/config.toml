@@ -1,0 +1,4 @@
+# herdr — terminal workspace manager for AI coding agents
+# Path (Linux and macOS): ~/.config/herdr/config.toml
+# Validate after editing: herdr config check
+# Apply to a running server:  herdr server reload-config

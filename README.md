@@ -20,13 +20,14 @@ Clone and stow:
 git clone <repo-url> ~/dotfiles
 cd ~/dotfiles
 stow fish tmux nvim kitty
+stow --no-folding herdr
 ```
 
 > If target files already exist, delete or back them up first — stow will refuse to overwrite.
 
 To remove symlinks:
 ```bash
-stow -D fish tmux nvim kitty
+stow -D fish tmux nvim kitty herdr
 ```
 
 ---
@@ -138,3 +139,26 @@ sudo systemctl restart keyd
 ```
 
 Remaps: `capslock` → tap: `esc`, hold: `ctrl`. `esc` → `capslock`.
+
+---
+
+## herdr
+
+Terminal workspace manager for AI coding agents. Binary lives at
+`~/.local/bin/herdr`; it self-updates with `herdr update`.
+
+Config path is the same on Linux and macOS: `~/.config/herdr/config.toml`.
+
+Stow it with `--no-folding` — herdr writes logs, sockets and `session.json`
+into `~/.config/herdr/`, and without that flag stow symlinks the whole
+directory and that runtime junk lands in this repo:
+
+```bash
+stow --no-folding herdr
+```
+
+After editing the config:
+```bash
+herdr config check          # validate
+herdr server reload-config  # apply to a running server
+```
