@@ -28,8 +28,10 @@ if status is-interactive
   --color=fg:#c0caf5,header:#f7768e,info:#7aa2f7,pointer:#7dcfff \
   --color=marker:#9ece6a,fg+:#c0caf5,prompt:#7aa2f7,hl+:#f7768e"
 
-    # enable farsi — X11 only, no-op elsewhere (macOS, tty, Wayland-only)
-    if type -q setxkbmap; and set -q DISPLAY
+    # enable farsi — X11 sessions only. Under Wayland the compositor owns the
+    # layout (see hyprland.conf kb_layout/kb_options); DISPLAY is set there too
+    # by Xwayland, so it cannot be used to detect X11.
+    if test "$XDG_SESSION_TYPE" = x11; and type -q setxkbmap
         setxkbmap -layout us,ir -option 'grp:alt_shift_toggle'
     end
 
