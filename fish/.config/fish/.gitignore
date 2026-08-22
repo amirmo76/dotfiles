@@ -1,6 +1,6 @@
 # Fish runtime state — managed by fish, never track
 fish_variables
-fish_variables.*
+fish_variables*
 
 # Fisher-installed plugin files (rebuilt by install.fish)
 functions/fisher.fish

@@ -23,7 +23,11 @@ stow fish tmux nvim kitty
 stow --no-folding herdr
 ```
 
-> If target files already exist, delete or back them up first — stow will refuse to overwrite.
+> If target files already exist, delete or back them up first — stow refuses to
+> overwrite anything it does not own. `~/.config/fish` in particular keeps
+> fisher plugin artifacts alongside the tracked files, so remove only the
+> tracked names (`config.fish`, `fish_plugins`, `install.fish`,
+> `conf.d/tokyo_night.fish`, `functions/proxy.fish`) rather than the directory.
 
 To remove symlinks:
 ```bash

@@ -7,6 +7,13 @@ if status is-interactive
     fish_add_path $HOME/.cargo/bin
     fish_add_path $HOME/.local/bin
 
+    # Android SDK/NDK — only on machines that have it
+    if test -d $HOME/Android/Sdk
+        set -gx ANDROID_SDK_ROOT $HOME/Android/Sdk
+        set -gx ANDROID_NDK $ANDROID_SDK_ROOT/ndk/30.0.14904198
+        fish_add_path $ANDROID_NDK/toolchains/llvm/prebuilt/linux-x86_64/bin
+    end
+
     alias v="nvim"
     alias quteconfig="nvim ~/.config/qutebrowser/config.py"
 
@@ -21,8 +28,10 @@ if status is-interactive
   --color=fg:#c0caf5,header:#f7768e,info:#7aa2f7,pointer:#7dcfff \
   --color=marker:#9ece6a,fg+:#c0caf5,prompt:#7aa2f7,hl+:#f7768e"
 
-    # enable farsi
-    setxkbmap -layout us,ir -option 'grp:alt_shift_toggle'
+    # enable farsi — X11 only, no-op elsewhere (macOS, tty, Wayland-only)
+    if type -q setxkbmap; and set -q DISPLAY
+        setxkbmap -layout us,ir -option 'grp:alt_shift_toggle'
+    end
 
     # enable vi mode persistently
     set -g fish_key_bindings fish_vi_key_bindings
@@ -34,4 +43,12 @@ if status is-interactive
 end
 
 # opencode
-fish_add_path /home/amir/.opencode/bin
+fish_add_path $HOME/.opencode/bin
+
+# pnpm
+if test -d $HOME/.local/share/pnpm
+    set -gx PNPM_HOME $HOME/.local/share/pnpm
+    if not string match -q -- $PNPM_HOME $PATH
+        set -gx PATH "$PNPM_HOME" $PATH
+    end
+end
