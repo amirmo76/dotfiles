@@ -183,3 +183,18 @@ After editing the config:
 herdr config check          # validate
 herdr server reload-config  # apply to a running server
 ```
+
+### vim-herdr-navigation
+
+`Ctrl+h/j/k/l` moves between Neovim splits and herdr panes as one. The herdr
+side is a plugin, installed outside this repo:
+
+```bash
+herdr plugin install paulbkim-dev/vim-herdr-navigation --yes
+herdr plugin action list --plugin vim-herdr-navigation   # verify
+```
+
+The `[[keys.command]]` bindings are in `config.toml` here. The Neovim side is
+picked up by `lua/plugins/vim-tmux-navigator.lua`, which globs the installed
+plugin's `editor/nvim.lua`; without the plugin the keys fall back to plain
+`wincmd`, so the nvim config stays portable. Needs `jq`.
