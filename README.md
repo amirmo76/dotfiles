@@ -19,7 +19,7 @@ Clone and stow:
 ```bash
 git clone <repo-url> ~/dotfiles
 cd ~/dotfiles
-stow fish nvim
+stow fish nvim claude
 stow --no-folding tmux kitty herdr
 ```
 
@@ -31,7 +31,7 @@ stow --no-folding tmux kitty herdr
 
 To remove symlinks:
 ```bash
-stow -D fish tmux nvim kitty herdr
+stow -D fish tmux nvim kitty herdr claude
 ```
 
 ---
@@ -198,3 +198,24 @@ The `[[keys.command]]` bindings are in `config.toml` here. The Neovim side is
 picked up by `lua/plugins/vim-tmux-navigator.lua`, which globs the installed
 plugin's `editor/nvim.lua`; without the plugin the keys fall back to plain
 `wincmd`, so the nvim config stays portable. Needs `jq`.
+
+---
+
+## claude
+
+Claude Code skills, linked into `~/.claude/skills`.
+
+```
+claude/.claude/skills/
+├── assistant/
+├── caveman/
+├── commit/
+├── svg-anim/
+└── teacher/
+```
+
+`~/.claude` holds untracked runtime state (credentials, history, projects), so
+only `skills` is stowed — stow folds it into a single symlink. Adding a skill
+means creating it in this repo, not in `~/.claude/skills`.
+
+No extra steps after stowing; Claude Code picks the skills up on next launch.
