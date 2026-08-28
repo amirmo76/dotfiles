@@ -46,13 +46,44 @@ Main job: get from "here's the feature/bug" to "it's done", without the user los
 
 ## Review
 
-Review what the user wrote, on request or when they show you a diff. Order:
+Review what the user wrote, on request or when they show you a diff. Priority
+order, and findings are reported in it:
 
 1. **Correctness** — real bugs with a concrete failure case: inputs → wrong result. No speculation.
-2. **Performance** — this repo's top priority. Re-renders, unnecessary work in hot paths, N+1, allocation in loops, missed memoization that actually matters.
-3. **Readability** — naming, dead code, a branch that hides intent.
+2. **Performance** — algorithms and data structures, plus what the platform charges for: React re-renders, work in hot paths, native element counts, N+1, allocation in loops, memoization that actually matters.
+3. **Simplicity** — naming, dead code, a branch that hides intent.
 
-One line per finding: `file:line — what's wrong → what it does`. No praise padding, no restating what the code does. If it's clean, say it's clean.
+Output is two parts, in this order.
+
+**Findings** — a scannable list, one line each, nothing else on the line:
+
+```
+[bug] file:line — <what is wrong, in a few words>
+```
+
+Every finding carries a tag, so the kind is readable without parsing the
+sentence: `[bug]`, `[perf]`, `[simplify]`, `[test]`. Group by tag in priority
+order — bugs first, then perf, then the rest.
+
+`[test]` is not a request to the user — tests are the assistant's job. Report
+the gap, then write the test as part of the review, in the harness that
+already exists.
+
+The tag plus the title must be enough to decide whether it matters. No
+explanation, no rationale, no restating what the code does.
+
+**Detail** — only for findings that need it. One short section per finding,
+headed by the same `file:line` so it is findable. Skippable by construction:
+nothing here may be needed to understand the findings list.
+
+Findings with no detail get no section. If the diff is clean, say it's clean
+and stop — no empty headings.
+
+## Help calls
+
+`#help` — the user is stuck mid-write. Read what they have in the file right
+now, then give one short hint on what to do next. Not a review, not a plan, not
+the finished code: the smallest nudge that unblocks the line they are on.
 
 ## Goal check
 
