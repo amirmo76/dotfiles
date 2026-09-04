@@ -20,7 +20,7 @@ Clone and stow:
 git clone <repo-url> ~/dotfiles
 cd ~/dotfiles
 stow fish nvim claude
-stow --no-folding tmux kitty herdr
+stow --no-folding tmux kitty herdr codex
 ```
 
 > If target files already exist, delete or back them up first — stow refuses to
@@ -31,7 +31,7 @@ stow --no-folding tmux kitty herdr
 
 To remove symlinks:
 ```bash
-stow -D fish tmux nvim kitty herdr claude
+stow -D fish tmux nvim kitty herdr claude codex
 ```
 
 ---
@@ -219,3 +219,25 @@ only `skills` is stowed — stow folds it into a single symlink. Adding a skill
 means creating it in this repo, not in `~/.claude/skills`.
 
 No extra steps after stowing; Claude Code picks the skills up on next launch.
+
+---
+
+## codex
+
+The same skills, for Codex CLI at `~/.codex/skills/skills`.
+
+```
+codex/.codex/skills/skills -> ../../../claude/.claude/skills
+```
+
+It is a symlink to the `claude` package, so there is one copy of every skill —
+edit it under `claude/.claude/skills/` and both agents see the change.
+
+`~/.codex` holds runtime state and `~/.codex/skills/.system` holds Codex's own
+built-in skills, so stow with `--no-folding` to keep those directories real:
+
+```bash
+stow --no-folding codex
+```
+
+If `~/.codex/skills/skills` already exists as a real directory, delete it first.

@@ -1,6 +1,6 @@
 ---
 name: commit
-description: Commit staged/unstaged work following the team git workflow (conventional type(scope) summary + GitLab issue #id). Use when the user says "commit", "/commit", or asks to create a commit, branch, or MR title per the team guidelines.
+description: Commit staged/unstaged work following the team git workflow (conventional type(scope) summary + GitLab issue #id). Also handles "#bump" for a version bump + release commit. Use when the user says "commit", "/commit", "#bump", or asks to create a commit, branch, or MR title per the team guidelines.
 ---
 
 # Commit
@@ -9,7 +9,7 @@ Format: `<type>(<scope>): <summary> #<issue-id>`
 
 - Summary ≤72 chars, imperative ("add", not "added"), no trailing period.
 - GitLab issue ref (`#124`) required at end. If unknown, take it from the branch name (`feature/124-...`); if still unknown, ask.
-- Body only when the *why* isn't obvious: blank line, then explain why, not what.
+- Body only when the _why_ isn't obvious: blank line, then explain why, not what.
 - Types: feat, fix, refactor, perf, test, docs, chore, style, ci.
 
 ```
@@ -30,9 +30,18 @@ fix(checkout): prevent double charge on retry #87
 
 - Never add `Co-Authored-By: Claude` or `Claude-Session:` trailers — commit messages carry no Claude attribution, in commits or MR bodies.
 - Never commit to `main`/`develop` — branch first: `<type>/<issue-id>-<short-desc>`.
-- Keep 1–3 commits per branch. More than 3 → `git rebase -i HEAD~N` and squash before MR.
 - Update branch with `git fetch origin && git rebase origin/main`. Never `git merge main` into a feature branch.
 - Push with `--force-with-lease` after a rebase. Never force-push main/develop.
 - Merge only via MR (squash, or rebase for 2–3 meaningful commits).
 
-MR title uses the same commit format; body = `## What` / `## Why` (with issue ref) / `## Testing` checklist.
+## `#bump`
+
+Triggered by `#bump` (or `/commit #bump`). Version release flow:
+
+1. Find the version: `package.json`, `pyproject.toml`, `Cargo.toml`, `VERSION`, or `git describe --tags --abbrev=0`. Read the current value.
+2. Decide the bump from the commits since the last tag (`git log <last-tag>..HEAD --oneline`): breaking change → major, any `feat` → minor, otherwise patch.
+3. **Ask the user to confirm** the proposed version before writing anything. Show current → proposed and the one-line reason. Wait for the answer.
+4. Write the new version to the file(s), then commit: `chore(release): bump version to <x.y.z> #<issue-id>`.
+5. Print a squash commit message for the branch — message only, nothing else:
+   - Title in the standard format above.
+   - Blank line, then a plain-prose description of the branch's changes (no bullets, no trailers).
